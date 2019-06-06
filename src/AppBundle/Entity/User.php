@@ -39,6 +39,14 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", cascade={"persist", "refresh"}, mappedBy="user")
+     */
+    private $tasks;
+    
+
     public function getId()
     {
         return $this->id;
@@ -86,5 +94,29 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * Get the value of tasks
+     *
+     * @return  ArrayCollection
+     */ 
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    /**
+     * Set the value of tasks
+     *
+     * @param  ArrayCollection  $tasks
+     *
+     * @return  self
+     */ 
+    public function setTasks(ArrayCollection $tasks)
+    {
+        $this->tasks = $tasks;
+
+        return $this;
     }
 }

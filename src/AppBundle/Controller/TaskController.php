@@ -15,15 +15,28 @@ class TaskController extends Controller
      */
     public function listAction()
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);
+        /*return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);*/
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')
+        ->findBy(
+            array('isDone' => false),
+            array('createdAt' => 'desc'),
+            null,
+            null
+        );
+        return $this->render('task/list.html.twig', array(
+            'tasks' => $tasks,
+            ));
     }
 
     /**
+     * @param Request $request
+     * 
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request)
     {
         $task = new Task();
+        $task->setUser($this->getUser());
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -73,9 +86,26 @@ class TaskController extends Controller
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $this->addFlash('success', sprintf('La tâche %s a bien changé d\'état.', $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
+    }
+
+    /**
+     * @Route("/tasksdone", name="task_done")
+     */
+    public function listDoneAction()
+    {
+        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')
+                      ->findBy(
+                          array('isDone' => true),
+                          array('createdAt' => 'desc'),
+                          null,
+                          null
+                      );
+        return $this->render('task/list.html.twig', array(
+            'tasks' => $tasks,
+        ));
     }
 
     /**
