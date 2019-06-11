@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<div class="container">
+{{ form_start(form) }}
+<div>
+    <h1>Supprimer ... ?</h1>
+</div>
+<br>
+<br>
+<br>
+<h4>Voulez-vous vraiment supprimer cet élément ?</h4>
+<br>
+<br>
+{{ form_widget(form) }}
+
+{{ form_end(form) }}
+<br>
+<div class="container">
+    <a href="{{ path('user_list') }}" class="btn btn-warning btn-md float-right">Retour</a>
+</div>
+{% endblock %}
+

@@ -10,7 +10,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table("user")
  * @ORM\Entity
- * @UniqueEntity("email")
+ * @UniqueEntity(
+ *      fields= {"email"},
+ *      message = "Cet email est déjà utilisé"
+ *      )
  */
 class User implements UserInterface
 {
@@ -42,10 +45,18 @@ class User implements UserInterface
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", cascade={"persist", "refresh"}, mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Task", cascade={"remove"}, mappedBy="user")
      */
     private $tasks;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
     
+    public function __construct() {
+        $this->roles = array('ROLE_USER');
+    }    
 
     public function getId()
     {
@@ -87,9 +98,9 @@ class User implements UserInterface
         $this->email = $email;
     }
 
-    public function getRoles()
+    public function getRoles(): ?array 
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function eraseCredentials()
@@ -109,14 +120,12 @@ class User implements UserInterface
     /**
      * Set the value of tasks
      *
-     * @param  ArrayCollection  $tasks
-     *
-     * @return  self
+     * @param  Task  $tasks
      */ 
-    public function setTasks(ArrayCollection $tasks)
+    public function setTask(Task $tasks)
     {
-        $this->tasks = $tasks;
+        $this->tasks[] = $task;
 
-        return $this;
+        $task->setUser($this);
     }
 }

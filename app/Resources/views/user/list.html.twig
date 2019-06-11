@@ -29,10 +29,18 @@
                         <td>
                             <a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-success btn-sm">Edit</a>
                         </td>
+                        <td>
+                            <a href="{{ path('user_delete', {'id' : user.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
+        <footer class="text-muted">
+            <div class="container">
+                <a href="{{ path('homepage') }}" class="btn btn-warning btn-md">Retour</a>
+            </div>
+        </footer>
     {% endif %}
 {% endblock %}

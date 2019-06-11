@@ -5,10 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class TaskController extends Controller
+class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks", name="task_list")
@@ -16,13 +16,16 @@ class TaskController extends Controller
     public function listAction()
     {
         /*return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);*/
-        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')
-        ->findBy(
+ 
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Task');
+        
+        $tasks = $repo->findBy(
             array('isDone' => false),
-            array('createdAt' => 'desc'),
+            array('createdAt' => 'asc'),
             null,
             null
         );
+
         return $this->render('task/list.html.twig', array(
             'tasks' => $tasks,
             ));
@@ -97,13 +100,15 @@ class TaskController extends Controller
     public function listDoneAction()
     {
         $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')
+                      
                       ->findBy(
                           array('isDone' => true),
                           array('createdAt' => 'desc'),
                           null,
                           null
                       );
-        return $this->render('task/list.html.twig', array(
+
+        return $this->render('task/done.html.twig', array(
             'tasks' => $tasks,
         ));
     }
