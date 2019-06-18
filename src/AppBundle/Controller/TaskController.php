@@ -2,39 +2,73 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class TaskController extends AbstractController
 {
     /**
-     * @Route("/tasks", name="task_list")
+     * @Route("/tasks", name="task_list", methods="GET")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function listAction()
     {
         /*return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);*/
  
+                
+        $user = $this->getUser()->getId();
+
         $repo = $this->getDoctrine()->getRepository('AppBundle:Task');
-        
+
         $tasks = $repo->findBy(
-            array('isDone' => false),
-            array('createdAt' => 'asc'),
-            null,
-            null
-        );
+                        array('isDone' => false),
+                        array('createdAt' => 'asc'),
+                        null,
+                        null
+                    );
 
         return $this->render('task/list.html.twig', array(
-            'tasks' => $tasks,
+            'task' => $tasks,
+            'user' => $user,
             ));
+    }
+
+    /**
+     * @Route("/tasksdone", name="task_done", methods="GET")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function listDoneAction()
+    {
+                
+        $user = $this->getUser()->getId();
+
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Task');
+
+        $tasks = $repo->findBy(
+                          array('isDone' => true),
+                          array('createdAt' => 'asc'),
+                          null,
+                          null
+                      );
+
+        return $this->render('task/done.html.twig', array(
+            'task' => $tasks,
+            'user' => $user,
+        ));
     }
 
     /**
      * @param Request $request
      * 
      * @Route("/tasks/create", name="task_create")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function createAction(Request $request)
     {
@@ -60,6 +94,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function editAction(Task $task, Request $request)
     {
@@ -83,6 +118,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function toggleTaskAction(Task $task)
     {
@@ -91,30 +127,12 @@ class TaskController extends AbstractController
 
         $this->addFlash('success', sprintf('La tâche %s a bien changé d\'état.', $task->getTitle()));
 
-        return $this->redirectToRoute('task_list');
-    }
-
-    /**
-     * @Route("/tasksdone", name="task_done")
-     */
-    public function listDoneAction()
-    {
-        $tasks = $this->getDoctrine()->getRepository('AppBundle:Task')
-                      
-                      ->findBy(
-                          array('isDone' => true),
-                          array('createdAt' => 'desc'),
-                          null,
-                          null
-                      );
-
-        return $this->render('task/done.html.twig', array(
-            'tasks' => $tasks,
-        ));
+        return $this->redirectToRoute('homepage');
     }
 
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function deleteTaskAction(Task $task)
     {

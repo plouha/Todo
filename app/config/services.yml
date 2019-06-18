@@ -3,7 +3,25 @@
 parameters:
 #    parameter_name: value
 
-services:
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    AppBundle\:
+        resource: '../../src/AppBundle/*'
+        exclude: '../../src/AppBundle/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+#     AppBundle\DataFixtures\:
+#         resource: '../../src/AppBundle/DataFixtures'
+#         tags: ['doctrine.fixtures.orm']
+#         arguments: ["@encoder"]
+    AppBundle\DataFixtures\ORM\UserFixtures:
+        tags:
+            - {name: 'doctrine.fixture.orm'}

@@ -8,7 +8,7 @@
     
     {% if is_granted('ROLE_ADMIN') %}
         <div class="row">
-                <a href="{{ path('user_list') }}" class="btn btn-warning float-right">Administration</a>
+                <a href="{{ path('user_list') }}" class="btn btn-warning">Administration</a>
         </div>
     {% else %}
             <div class="row">
