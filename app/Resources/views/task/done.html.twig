@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        {% for task in app.user.tasks if task.isDone %}
+        {% for task in tasks %}
                 <div class="-d inline block">
                     <div class="col-sm-4 col-lg-4 col-md-4" style="margin-left: 0";>
                             <h3>Tâche terminée</h3>

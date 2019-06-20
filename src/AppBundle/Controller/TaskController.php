@@ -20,9 +20,7 @@ class TaskController extends AbstractController
      */
     public function listAction()
     {
-        /*return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('AppBundle:Task')->findAll()]);*/
- 
-                
+  
         $user = $this->getUser()->getId();
 
         $repo = $this->getDoctrine()->getRepository('AppBundle:Task');
@@ -35,7 +33,7 @@ class TaskController extends AbstractController
                     );
 
         return $this->render('task/list.html.twig', array(
-            'task' => $tasks,
+            'tasks' => $tasks,
             'user' => $user,
             ));
     }
@@ -59,7 +57,7 @@ class TaskController extends AbstractController
                       );
 
         return $this->render('task/done.html.twig', array(
-            'task' => $tasks,
+            'tasks' => $tasks,
             'user' => $user,
         ));
     }
@@ -98,6 +96,8 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
+        
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -122,6 +122,8 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('edit', $task);
+
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -136,6 +138,8 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted('delete', $task);
+        
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

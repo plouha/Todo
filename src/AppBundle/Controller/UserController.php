@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +12,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+
+
 
 
 class UserController extends AbstractController
@@ -23,10 +31,11 @@ class UserController extends AbstractController
     {
         $this->encoder = $encoder;
     }
-    
+
     /**
      * Affiche la liste des users
      * @Route("/users", name="user_list")
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function listAction()
     {
@@ -66,10 +75,12 @@ class UserController extends AbstractController
 
     /**
      * Edite un User
-     * @Route("/users/{id}/edit", name="user_edit")
+     * @Route("/users/{id}/edit", name="user_edit", methods={"GET"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editAction(User $user, Request $request)
     {
+        /*$this->denyAccessUnlessGranted('edit', $user);*/
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -90,11 +101,12 @@ class UserController extends AbstractController
 
     /**
     * @Route("/users/{id}/delete", name="user_delete", methods={"GET", "POST"})
+    * @Security("is_granted('ROLE_ADMIN')")    
     */
     
     public function delete(User $user, Request $request)
     {
-        
+        /*$this->denyAccessUnlessGranted('delete', $user);*/
         $formBuilder = $this->createFormBuilder();      //on crée un objet formulaire vide ... on y ajoute un bouton "submit"
         $formBuilder->add("Supprimer", SubmitType::class, array('attr' => array('class' => 'btn btn-danger')));
         $form = $formBuilder->getForm();                //on construit l'objet formulaire

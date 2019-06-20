@@ -25,3 +25,7 @@ services:
     AppBundle\DataFixtures\ORM\UserFixtures:
         tags:
             - {name: 'doctrine.fixture.orm'}
+
+    AppBundle\Security\Voter\:
+        resource: '../../src/AppBundle/Security/Voter/*'
+        tags: ['security.voter']
