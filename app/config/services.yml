@@ -29,3 +29,11 @@ services:
     AppBundle\Security\Voter\:
         resource: '../../src/AppBundle/Security/Voter/*'
         tags: ['security.voter']
+
+    AppBundle\Handler\AddTaskHandler:
+        tags:
+        - {name: 'add.task.handler'}
+
+    AppBundle\Handler\EditTaskHandler:
+        tags:
+        - {name: 'edit.task.handler'}

@@ -7,10 +7,15 @@ use AppBundle\Form\UserType;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use AppBundle\Handler\AddTaskHandler;
+use AppBundle\Handler\EditTaskHandler;
+use Symfony\Component\Form\FormFactoryInterface;
+
 
 class TaskController extends AbstractController
 {
@@ -64,58 +69,37 @@ class TaskController extends AbstractController
 
     /**
      * @param Request $request
-     * 
      * @Route("/tasks/create", name="task_create")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, AddTaskHandler $addTaskHandler)
     {
         $task = new Task();
-        $task->setUser($this->getUser());
-        $form = $this->createForm(TaskType::class, $task);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($task);
-            $em->flush();
-
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
-
-            return $this->redirectToRoute('task_list');
-        }
-
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        $task->setUser($this->getUser());    
+            if ($addTaskHandler->handle($request, $task)) { 
+                return $this->redirectToRoute('task_list');
+            }
+        return $this->render('task/create.html.twig', [
+            'form' => $addTaskHandler->getForm()->createView()]);
     }
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(Task $task, Request $request, EditTaskHandler $editTaskHandler)
     {
         $this->denyAccessUnlessGranted('edit', $task);
         
-        $form = $this->createForm(TaskType::class, $task);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
-
+        if ($editTaskHandler->handle($request, $task)) { 
             return $this->redirectToRoute('task_list');
         }
-
         return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $editTaskHandler->getForm()->createView(),
             'task' => $task,
         ]);
     }
-
+    
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      * @Security("is_granted('ROLE_USER')")
