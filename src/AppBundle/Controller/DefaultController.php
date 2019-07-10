@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DefaultController extends AbstractController
 {
     /**
+     * Amène sur la homepage
      * @Route("/", name="homepage")
      */
     public function indexAction()

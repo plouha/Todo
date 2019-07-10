@@ -22,6 +22,14 @@ services:
 #         resource: '../../src/AppBundle/DataFixtures'
 #         tags: ['doctrine.fixtures.orm']
 #         arguments: ["@encoder"]
+    AppBundle\Entity\User:
+        tags:
+            - {name: 'user.entity'}
+
+    AppBundle\Entity\Task:
+        tags:
+            - {name: 'task.entity'}
+
     AppBundle\DataFixtures\ORM\UserFixtures:
         tags:
             - {name: 'doctrine.fixture.orm'}

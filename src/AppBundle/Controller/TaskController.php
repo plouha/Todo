@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 class TaskController extends AbstractController
 {
     /**
+     * Affiche la liste des tâches à faire
      * @Route("/tasks", name="task_list", methods="GET")
      * @Security("is_granted('ROLE_USER')")
      */
@@ -44,6 +45,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Afiiche la liste des tâches terminées
      * @Route("/tasksdone", name="task_done", methods="GET")
      * @Security("is_granted('ROLE_USER')")
      */
@@ -68,6 +70,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Création d'une tâche
      * @param Request $request
      * @Route("/tasks/create", name="task_create")
      * @Security("is_granted('ROLE_USER')")
@@ -84,6 +87,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Edite une tâche
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @Security("is_granted('ROLE_USER')")
      */
@@ -101,6 +105,7 @@ class TaskController extends AbstractController
     }
     
     /**
+     * Permet de changer le toggle
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      * @Security("is_granted('ROLE_USER')")
      */
@@ -117,6 +122,7 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Supprime une tâche
      * @Route("/tasks/{id}/delete", name="task_delete")
      * @Security("is_granted('ROLE_USER')")
      */

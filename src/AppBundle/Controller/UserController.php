@@ -33,6 +33,11 @@ class UserController extends AbstractController
     }
 
     /**
+     * @var User
+     */
+    private $user;
+
+    /**
      * Affiche la liste des users
      * @Route("/users", name="user_list")
      * @Security("is_granted('ROLE_ADMIN')")
@@ -59,7 +64,7 @@ class UserController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = $this->encoder->encodePassword($user, 'password');
+            $password = $this->encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $em->persist($user);
@@ -75,18 +80,17 @@ class UserController extends AbstractController
 
     /**
      * Edite un User
-     * @Route("/users/{id}/edit", name="user_edit", methods={"GET"})
+     * @Route("/users/{id}/edit", name="user_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
      */
     public function editAction(User $user, Request $request)
     {
-        /*$this->denyAccessUnlessGranted('edit', $user);*/
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            $password = $this->encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $this->getDoctrine()->getManager()->flush();
@@ -120,10 +124,7 @@ class UserController extends AbstractController
                 $em->remove($user);
                 $em->flush();
 
-                $this->addFlash(
-                    'Confirmation : ',
-                    'User supprimé !'
-                );
+                $this->addFlash("Success", "User supprimé !");
 
             return $this->redirectToRoute('user_list');
             }

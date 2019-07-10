@@ -7,7 +7,7 @@ use AppBundle\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class TaskVoter extends Voter
+class TaskVoter extends Voter           /* Création du Voter qui autorise ou EDIT et DELETE */
 {
 
     protected function supports($attribute, $subject)

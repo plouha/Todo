@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\TaskType;
 
-class EditTaskHandler extends Handler
+class EditTaskHandler extends Handler     /* handler pour EditTask */
 {
 
   public function getFormType(): string
