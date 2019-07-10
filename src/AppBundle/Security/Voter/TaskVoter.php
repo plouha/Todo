@@ -10,6 +10,14 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class TaskVoter extends Voter           /* Création du Voter qui autorise ou EDIT et DELETE */
 {
 
+    /**
+     * supports
+     *
+     * @param  mixed $attribute
+     * @param  mixed $subject
+     *
+     * @return void
+     */
     protected function supports($attribute, $subject)
     {
 
@@ -20,6 +28,15 @@ class TaskVoter extends Voter           /* Création du Voter qui autorise ou ED
         return in_array($attribute, ["delete", "edit"]);
     }
 
+    /**
+     * voteOnAttribute
+     *
+     * @param  mixed $attribute
+     * @param  mixed $subject
+     * @param  mixed $token
+     *
+     * @return void
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
 

@@ -12,10 +12,25 @@ class UserFixtures extends Fixture          /* Fichier de création des fixtures
 {
     private $encoder;
 
+    /**
+     * __construct
+     *
+     * @param  mixed $encoder
+     *
+     * @return void
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
     }
+    
+    /**
+     * load
+     *
+     * @param  mixed $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         

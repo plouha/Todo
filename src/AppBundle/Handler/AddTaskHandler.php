@@ -11,11 +11,23 @@ use AppBundle\Form\TaskType;
 class AddTaskHandler extends Handler      /* handler pour AddTask */
 {
   
+  /**
+   * getFormType
+   *
+   * @return string
+   */
   public function getFormType(): string
   {
     return TaskType::class; 
   }
   
+  /**
+   * process
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   public function process($data)
   {
     $this->em->persist($data);

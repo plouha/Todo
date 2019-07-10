@@ -29,6 +29,14 @@ abstract class Handler        /* Création du Handler */
   
   abstract public function process($data);
   
+  /**
+   * handle
+   *
+   * @param  mixed $request
+   * @param  mixed $data
+   *
+   * @return bool
+   */
   public function handle(Request $request, $data): bool
   {
     $this->form = $this->formFactory->create($this->getFormType(), $data)->handleRequest($request);
@@ -42,6 +50,11 @@ abstract class Handler        /* Création du Handler */
     return false;
   }
   
+  /**
+   * getForm
+   *
+   * @return void
+   */
   public function getForm()
   {
     return $this->form; 

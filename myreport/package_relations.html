@@ -49,7 +49,7 @@
 <div class="page">
     <div class="content">
         <div class="report-details">
-            Created at 2019-06-04 14:56:03        , with PHPMetrics v2.4.1 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
+            Created at 2019-07-10 14:19:59        , with PHPMetrics v2.4.1 (<a href="https://twitter.com/Halleck45">Jean-François Lépine</a>).
         </div>
 
 
@@ -92,7 +92,7 @@
                             <path d="M0 0h24v24H0z" fill="none"/>
                             <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
                         </svg>
-                        Violations (4)
+                        Violations (1)
                     </a>
                 </li>
                                 <li>
@@ -239,106 +239,32 @@
 
     var relations = [
     {
-        "name": "global",
+        "name": "AppBundle\\Handler",
         "size": 3000,
         "relations": [
-            "Symfony\\Bundle\\FrameworkBundle\\HttpCache",
-            "Symfony\\Component\\HttpKernel",
-            "Symfony\\Bundle\\FrameworkBundle",
-            "Symfony\\Bundle\\SecurityBundle",
-            "Symfony\\Bundle\\TwigBundle",
-            "Symfony\\Bundle\\MonologBundle",
-            "Symfony\\Bundle\\SwiftmailerBundle",
-            "Doctrine\\Bundle\\DoctrineBundle",
-            "Sensio\\Bundle\\FrameworkExtraBundle",
-            "AppBundle",
-            "Symfony\\Bundle\\DebugBundle",
-            "Symfony\\Bundle\\WebProfilerBundle",
-            "Sensio\\Bundle\\DistributionBundle",
-            "Sensio\\Bundle\\GeneratorBundle",
-            "Symfony\\Component\\Config\\Loader",
-            "Symfony\\Component\\Intl"
+            "Symfony\\Component\\Form",
+            "Symfony\\Component\\HttpFoundation\\Session\\Flash",
+            "Doctrine\\ORM",
+            "Symfony\\Component\\HttpFoundation"
         ]
     },
     {
-        "name": "Symfony\\Bundle\\FrameworkBundle\\HttpCache",
+        "name": "Symfony\\Component\\Form",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "Symfony\\Component\\HttpKernel",
+        "name": "Symfony\\Component\\HttpFoundation\\Session\\Flash",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "Symfony\\Bundle\\FrameworkBundle",
+        "name": "Doctrine\\ORM",
         "size": 3000,
         "relations": []
     },
     {
-        "name": "Symfony\\Bundle\\SecurityBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Bundle\\TwigBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Bundle\\MonologBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Bundle\\SwiftmailerBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Doctrine\\Bundle\\DoctrineBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Sensio\\Bundle\\FrameworkExtraBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "AppBundle",
-        "size": 3000,
-        "relations": [
-            "Symfony\\Component\\HttpKernel\\Bundle"
-        ]
-    },
-    {
-        "name": "Symfony\\Bundle\\DebugBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Bundle\\WebProfilerBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Sensio\\Bundle\\DistributionBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Sensio\\Bundle\\GeneratorBundle",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Component\\Config\\Loader",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Component\\Intl",
+        "name": "Symfony\\Component\\HttpFoundation",
         "size": 3000,
         "relations": []
     },
@@ -350,7 +276,20 @@
         ]
     },
     {
-        "name": "Symfony\\Component\\Form",
+        "name": "AppBundle\\Security\\Voter",
+        "size": 3000,
+        "relations": [
+            "Symfony\\Component\\Security\\Core\\Authorization\\Voter",
+            "Symfony\\Component\\Security\\Core\\Authentication\\Token"
+        ]
+    },
+    {
+        "name": "Symfony\\Component\\Security\\Core\\Authorization\\Voter",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "Symfony\\Component\\Security\\Core\\Authentication\\Token",
         "size": 3000,
         "relations": []
     },
@@ -368,7 +307,45 @@
         "relations": []
     },
     {
+        "name": "global",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "AppBundle",
+        "size": 3000,
+        "relations": [
+            "Symfony\\Component\\HttpKernel\\Bundle"
+        ]
+    },
+    {
         "name": "Symfony\\Component\\HttpKernel\\Bundle",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "AppBundle\\DataFixtures\\ORM",
+        "size": 3000,
+        "relations": [
+            "Doctrine\\Bundle\\FixturesBundle",
+            "Symfony\\Component\\Security\\Core\\Encoder",
+            "Doctrine\\Common\\Persistence",
+            "AppBundle\\Entity",
+            "global"
+        ]
+    },
+    {
+        "name": "Doctrine\\Bundle\\FixturesBundle",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "Symfony\\Component\\Security\\Core\\Encoder",
+        "size": 3000,
+        "relations": []
+    },
+    {
+        "name": "Doctrine\\Common\\Persistence",
         "size": 3000,
         "relations": []
     },
@@ -378,8 +355,10 @@
         "relations": [
             "Symfony\\Bundle\\FrameworkBundle\\Controller",
             "Sensio\\Bundle\\FrameworkExtraBundle\\Configuration",
+            "Symfony\\Component\\Security\\Core\\Encoder",
             "Symfony\\Component\\HttpFoundation",
-            "AppBundle\\Entity"
+            "AppBundle\\Entity",
+            "AppBundle\\Handler"
         ]
     },
     {
@@ -389,11 +368,6 @@
     },
     {
         "name": "Sensio\\Bundle\\FrameworkExtraBundle\\Configuration",
-        "size": 3000,
-        "relations": []
-    },
-    {
-        "name": "Symfony\\Component\\HttpFoundation",
         "size": 3000,
         "relations": []
     }

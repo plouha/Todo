@@ -10,6 +10,10 @@ class DefaultController extends AbstractController
     /**
      * Amène sur la homepage
      * @Route("/", name="homepage")
+     *
+     * indexAction
+     *
+     * @return void
      */
     public function indexAction()
     {

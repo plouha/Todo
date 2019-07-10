@@ -11,11 +11,23 @@ use AppBundle\Form\TaskType;
 class EditTaskHandler extends Handler     /* handler pour EditTask */
 {
 
+  /**
+   * getFormType
+   *
+   * @return string
+   */
   public function getFormType(): string
     {
       return TaskType::class; 
     }
       
+  /**
+   * process
+   *
+   * @param  mixed $data
+   *
+   * @return void
+   */
   public function process($data)
     {
       $this->em->flush();

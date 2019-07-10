@@ -59,51 +59,107 @@ class User implements UserInterface
         $this->roles = array('ROLE_USER');
     }    
 
+    /**
+     * getId
+     *
+     * @return void
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * getUsername
+     *
+     * @return void
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * setUsername
+     *
+     * @param  mixed $username
+     *
+     * @return void
+     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * getSalt
+     *
+     * @return void
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     * getPassword
+     *
+     * @return void
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * setPassword
+     *
+     * @param  mixed $password
+     *
+     * @return void
+     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * getEmail
+     *
+     * @return void
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
+    /**
+     * setEmail
+     *
+     * @param  mixed $email
+     *
+     * @return void
+     */
     public function setEmail($email)
     {
         $this->email = $email;
     }
 
+    /**
+     * getRoles
+     *
+     * @return array
+     */
     public function getRoles(): ?array 
     {
         return $this->roles;
     }
 
+    /**
+     * eraseCredentials
+     *
+     * @return void
+     */
     public function eraseCredentials()
     {
     }

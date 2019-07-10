@@ -90,6 +90,13 @@ class TaskController extends AbstractController
      * Edite une tâche
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @Security("is_granted('ROLE_USER')")
+     * editAction
+     *
+     * @param  mixed $task
+     * @param  mixed $request
+     * @param  mixed $editTaskHandler
+     *
+     * @return void
      */
     public function editAction(Task $task, Request $request, EditTaskHandler $editTaskHandler)
     {
@@ -108,6 +115,11 @@ class TaskController extends AbstractController
      * Permet de changer le toggle
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      * @Security("is_granted('ROLE_USER')")
+     * toggleTaskAction
+     *
+     * @param  mixed $task
+     *
+     * @return void
      */
     public function toggleTaskAction(Task $task)
     {
@@ -125,6 +137,11 @@ class TaskController extends AbstractController
      * Supprime une tâche
      * @Route("/tasks/{id}/delete", name="task_delete")
      * @Security("is_granted('ROLE_USER')")
+     * deleteTaskAction
+     *
+     * @param  mixed $task
+     *
+     * @return void
      */
     public function deleteTaskAction(Task $task)
     {

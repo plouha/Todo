@@ -11,6 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class UserType extends AbstractType
 {
+    /**
+     * buildForm
+     *
+     * @param  mixed $builder
+     * @param  mixed $options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

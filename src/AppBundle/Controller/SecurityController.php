@@ -12,6 +12,11 @@ class SecurityController extends Controller
     /**
      * Permet de se connecter
      * @Route("/login", name="login")
+     * loginAction
+     *
+     * @param  mixed $request
+     *
+     * @return void
      */
     public function loginAction(Request $request)
     {
@@ -29,6 +34,9 @@ class SecurityController extends Controller
     /**
      * Permet de se déconnecter
      * @Route("/logout", name="logout")
+     * logout
+     *
+     * @return void
      */
     public function logout()
     {

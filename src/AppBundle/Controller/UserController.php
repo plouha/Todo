@@ -27,6 +27,13 @@ class UserController extends AbstractController
 {
     private $encoder;
 
+    /**
+     * __construct
+     *
+     * @param  mixed $encoder
+     *
+     * @return void
+     */
     public function __construct(UserPasswordEncoderInterface $encoder)
     {
         $this->encoder = $encoder;
@@ -41,6 +48,9 @@ class UserController extends AbstractController
      * Affiche la liste des users
      * @Route("/users", name="user_list")
      * @Security("is_granted('ROLE_ADMIN')")
+     * listAction
+     *
+     * @return void
      */
     public function listAction()
     {
@@ -54,6 +64,11 @@ class UserController extends AbstractController
     /**
      * Affiche le formulaire de création d'user
      * @Route("/users/create", name="user_create")
+     * createAction
+     *
+     * @param  mixed $request
+     *
+     * @return void
      */
     public function createAction(Request $request)
     {
@@ -82,6 +97,12 @@ class UserController extends AbstractController
      * Edite un User
      * @Route("/users/{id}/edit", name="user_edit", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN')")
+     * editAction
+     *
+     * @param  mixed $user
+     * @param  mixed $request
+     *
+     * @return void
      */
     public function editAction(User $user, Request $request)
     {
@@ -106,8 +127,13 @@ class UserController extends AbstractController
     /**
     * @Route("/users/{id}/delete", name="user_delete", methods={"GET", "POST"})
     * @Security("is_granted('ROLE_ADMIN')")    
-    */
-    
+     * delete
+     *
+     * @param  mixed $user
+     * @param  mixed $request
+     *
+     * @return void
+     */
     public function delete(User $user, Request $request)
     {
         /*$this->denyAccessUnlessGranted('delete', $user);*/
