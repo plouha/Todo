@@ -29,7 +29,7 @@ parameters:
     database_user: root
     database_password: root
 ```
-- Créer la base de données snowtricks puis ses tables. Taper en ligne de commande :
+- Créer la base de données todo puis ses tables. Taper en ligne de commande :
 ```
 php bin/console doctrine:database:create todo
 php bin/console doctrine:schema:update --force
